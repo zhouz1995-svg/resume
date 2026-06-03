@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周振 · Technical Artist Portfolio</title>
+<style>
+  :root {
+    --bg: #101114; --bg2: #15171b; --card: #1a1d22;
+    --text: #e0e1e5; --text2: #7e8188; --accent: #4ea8ff;
+    --accent2: #357abd; --accent-warm: #f0a040; --accent-green: #3ec890;
+    --accent-purple: #8b6ce0; --border: #25282e; --radius: 10px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.25);
+    --shadow-md: 0 8px 30px rgba(0,0,0,0.4);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection { background:rgba(78,168,255,0.25); color:#fff; }
+
+  /* ── Nav ── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:1000;
+    background:rgba(16,17,20,0.88); backdrop-filter:blur(20px) saturate(1.4);
+    border-bottom:1px solid rgba(255,255,255,0.06); padding:0 2rem; height:54px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  nav .logo { font-size:1rem; font-weight:700; color:#fff; letter-spacing:0.05em; }
+  nav .links { display:flex; gap:1.5rem; list-style:none; }
+  nav .links a { color:var(--text2); text-decoration:none; font-size:0.76rem; transition:color 0.2s; letter-spacing:0.03em; }
+  nav .links a:hover { color:#fff; }
+
+  /* ── Section Base ── */
+  section { padding:6rem 2rem; }
+  .sec-inner { max-width:1280px; margin:0 auto; }
+  .sec-header { text-align:center; margin-bottom:4rem; }
+  .sec-header .sec-icon { font-size:2rem; margin-bottom:0.6rem; }
+  .sec-header h2 { font-size:2rem; font-weight:700; color:#fff; letter-spacing:0.03em; }
+  .sec-header .sec-line { width:40px; height:2px; background:var(--accent); margin:0.8rem auto; border-radius:2px; opacity:0.6; }
+  .sec-header p { color:var(--text2); font-size:0.88rem; max-width:520px; margin:0 auto; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center;
+    position:relative; overflow:hidden;
+    background:radial-gradient(ellipse 70% 50% at 50% 35%, rgba(78,168,255,0.10) 0%, transparent 70%),
+               radial-gradient(ellipse 60% 40% at 80% 70%, rgba(240,160,64,0.06) 0%, transparent 60%);
+  }
+  .hero h1 { font-size:4rem; font-weight:800; color:#fff; letter-spacing:0.06em; margin-bottom:0.6rem; }
+  .hero .sub { font-size:1.15rem; color:var(--accent); letter-spacing:0.04em; margin-bottom:1rem; }
+  .hero .desc { max-width:560px; color:var(--text2); font-size:0.9rem; line-height:1.9; margin-bottom:2rem; }
+  .hero .stats { display:flex; gap:2.5rem; justify-content:center; margin-bottom:2rem; flex-wrap:wrap; }
+  .hero .stats .st { text-align:center; }
+  .hero .stats .st .num { font-size:2rem; font-weight:800; background:linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero .stats .st .lbl { font-size:0.72rem; color:var(--text2); margin-top:0.2rem; letter-spacing:0.04em; }
+  .hero .tags { display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center; }
+  .hero .tags span { font-size:0.7rem; padding:0.25rem 0.9rem; border-radius:20px; background:rgba(78,168,255,0.08); color:var(--accent); border:1px solid rgba(78,168,255,0.15); }
+
+  /* ── Skills ── */
+  #skills { background:var(--bg2); }
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:0.7rem; }
+  .skill-item {
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:1.1rem 1.2rem; text-align:center; transition:all 0.3s;
+  }
+  .skill-item:hover { border-color:rgba(78,168,255,0.3); transform:translateY(-1px); }
+  .skill-item .skill-icon { font-size:1.3rem; margin-bottom:0.3rem; }
+  .skill-item .skill-name { font-weight:600; font-size:0.76rem; color:#fff; margin-bottom:0.5rem; }
+  .skill-item .skill-bar { height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .skill-item .skill-bar .fill { height:100%; border-radius:2px; transition:width 1s ease-out; }
+  .skill-item .skill-bar .fill.c1 { background:linear-gradient(90deg, var(--accent-warm), #f5c060); }
+  .skill-item .skill-bar .fill.c2 { background:linear-gradient(90deg, var(--accent-green), #5ed8a0); }
+  .skill-item .skill-bar .fill.c3 { background:linear-gradient(90deg, var(--accent), var(--accent-purple)); }
+
+  /* ── Capabilities ── */
+  .cap-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:1.3rem; }
+  .cap-card {
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:2rem; transition:all 0.35s; position:relative; overflow:hidden;
+  }
+  .cap-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:40px; border-radius:0 4px 4px 0; margin:1.6rem 0; transition:height 0.3s; }
+  .cap-card:hover::before { height:60px; }
+  .cap-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:rgba(255,255,255,0.1); }
+  .cap-card .cap-icon { font-size:2rem; margin-bottom:0.6rem; }
+  .cap-card h3 { font-size:1.1rem; color:#fff; margin-bottom:0.4rem; font-weight:600; }
+  .cap-card .meta { display:flex; gap:0.4rem; margin-bottom:0.8rem; flex-wrap:wrap; }
+  .cap-card .meta span { font-size:0.64rem; padding:0.12rem 0.55rem; border-radius:12px; background:var(--border); color:var(--text2); }
+  .cap-card .desc { color:var(--text2); font-size:0.82rem; line-height:1.65; margin-bottom:0.9rem; }
+  .cap-card .hl { padding-top:0.9rem; border-top:1px solid var(--border); }
+  .cap-card .hl div { font-size:0.76rem; color:var(--text2); padding:0.22rem 0; padding-left:0.5rem; }
+  .cap-card .hl div::before { content:'▸'; color:var(--accent); margin-right:0.35rem; font-size:0.55rem; }
+  .metric { padding:0.1rem 0.4rem; border-radius:8px; background:rgba(62,200,144,0.12); color:var(--accent-green); font-weight:700; font-size:0.7rem; }
+
+  /* Card accent colors */
+  .cap-card.ac-render::before { background:var(--accent-warm); }
+  .cap-card.ac-pipe::before { background:var(--accent-green); }
+  .cap-card.ac-agent::before { background:var(--accent); }
+  .cap-card.ac-aigc::before { background:var(--accent-purple); }
+  .cap-card.ac-comp::before { background:#d07070; }
+
+  /* ── Projects ── */
+  #projects { background:var(--bg2); }
+  .proj-block {
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:2.2rem; margin-bottom:1.3rem; transition:all 0.3s;
+    border-left:3px solid transparent;
+  }
+  .proj-block:hover { border-left-color:var(--accent); box-shadow:var(--shadow-sm); }
+  .proj-block h3 { font-size:1.08rem; color:#fff; display:flex; align-items:center; gap:0.5rem; }
+  .proj-block .proj-badge { font-size:0.64rem; padding:0.1rem 0.55rem; border-radius:10px; font-weight:600; letter-spacing:0.04em; }
+  .proj-block .proj-badge.b1 { background:rgba(240,160,64,0.15); color:var(--accent-warm); }
+  .proj-block .proj-badge.b2 { background:rgba(78,168,255,0.15); color:var(--accent); }
+  .proj-block .proj-badge.b3 { background:rgba(139,108,224,0.15); color:var(--accent-purple); }
+  .proj-block .proj-tags { display:flex; gap:0.4rem; flex-wrap:wrap; margin:0.6rem 0 1.2rem; }
+  .proj-block .proj-tags span { font-size:0.64rem; padding:0.15rem 0.6rem; border-radius:14px; background:rgba(78,168,255,0.08); color:var(--accent); border:1px solid rgba(78,168,255,0.1); }
+  .proj-body { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  @media(max-width:768px){ .proj-body{grid-template-columns:1fr;} }
+  .proj-body h4 { font-size:0.8rem; color:var(--accent); margin-bottom:0.5rem; letter-spacing:0.04em; text-transform:uppercase; }
+  .proj-body ul { list-style:none; color:var(--text2); font-size:0.81rem; }
+  .proj-body li { padding:0.22rem 0; padding-left:0.9rem; position:relative; }
+  .proj-body li::before { content:'›'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+
+  /* ── Gallery ── */
+  .gal-header { margin-top:5rem; }
+  .gal-header:first-child { margin-top:0; }
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:1.3rem; }
+  .card {
+    background:var(--card); border-radius:var(--radius); overflow:hidden;
+    border:1px solid var(--border); transition:all 0.35s; cursor:pointer;
+  }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:rgba(255,255,255,0.12); }
+  .card-media { width:100%; height:220px; overflow:hidden; position:relative; background:var(--bg2); }
+  .card-media img, .card-media video { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+  .card:hover .card-media img { transform:scale(1.04); }
+  .card-media .play-icon { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:46px; height:46px; background:rgba(0,0,0,0.55); border-radius:50%; display:flex; align-items:center; justify-content:center; pointer-events:none; transition:all 0.25s; }
+  .card:hover .play-icon { background:rgba(78,168,255,0.6); }
+  .card-media .play-icon::after { content:''; width:0; height:0; border-left:14px solid #fff; border-top:9px solid transparent; border-bottom:9px solid transparent; }
+  .card-info { padding:1rem; }
+  .card-tag { font-size:0.62rem; padding:0.1rem 0.5rem; border-radius:10px; display:inline-block; margin-bottom:0.3rem; }
+  .card-tag.t-render { background:rgba(240,160,64,0.12); color:var(--accent-warm); }
+  .card-tag.t-ai { background:rgba(139,108,224,0.12); color:var(--accent-purple); }
+  .card-tag.t-tool { background:rgba(62,200,144,0.12); color:var(--accent-green); }
+  .card-title { font-size:0.84rem; font-weight:600; color:#fff; }
+  .card-desc { font-size:0.72rem; color:var(--text2); margin-top:0.15rem; }
+
+  /* ── Agent ── */
+  #agent { background:var(--bg2); }
+  .agent-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:1.5rem; }
+  .agent-card {
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:2.2rem; transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .agent-card::after { content:''; position:absolute; top:-30px; right:-30px; width:120px; height:120px; background:radial-gradient(circle, rgba(78,168,255,0.06) 0%, transparent 70%); border-radius:50%; pointer-events:none; }
+  .agent-card:hover { border-color:rgba(78,168,255,0.25); box-shadow:var(--shadow-sm); }
+  .agent-card .agent-emoji { font-size:2.5rem; margin-bottom:0.5rem; }
+  .agent-card h3 { font-size:1.15rem; color:#fff; margin-bottom:0.2rem; }
+  .agent-card .agent-role { color:var(--accent); font-size:0.78rem; margin-bottom:1rem; letter-spacing:0.03em; }
+  .agent-card ul { list-style:none; color:var(--text2); font-size:0.82rem; }
+  .agent-card li { padding:0.28rem 0; padding-left:1.1rem; position:relative; }
+  .agent-card li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:0.7rem; }
+  .agent-card .arch-wrap { margin-top:1rem; border-radius:6px; overflow:hidden; border:1px solid var(--border); cursor:pointer; transition:border-color 0.2s; }
+  .agent-card .arch-wrap:hover { border-color:var(--accent); }
+  .agent-card .arch-wrap img { width:100%; display:block; }
+
+  /* ── Competitor ── */
+  .ppt-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.3rem; }
+  .ppt-card {
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:1.6rem; transition:all 0.3s;
+  }
+  .ppt-card:hover { border-color:rgba(255,255,255,0.1); box-shadow:var(--shadow-sm); }
+  .ppt-card h3 { font-size:0.92rem; color:#fff; margin-bottom:0.4rem; }
+  .ppt-card p { color:var(--text2); font-size:0.76rem; line-height:1.6; }
+  .ppt-card .file-path { font-size:0.62rem; color:var(--text2); margin-top:0.6rem; opacity:0.4; font-family:'SF Mono','Menlo',monospace; }
+  .ppt-card .arch-wrap { margin-bottom:0.8rem; border-radius:6px; overflow:hidden; border:1px solid var(--border); cursor:pointer; }
+  .ppt-card .arch-wrap:hover { border-color:var(--accent); }
+  .ppt-card .arch-wrap img { width:100%; display:block; }
+
+  /* ── Personal ── */
+  #personal { background:var(--bg2); }
+  .personal-block {
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:2.2rem; max-width:760px; margin:0 auto;
+  }
+  .personal-block h3 { font-size:1.15rem; color:#fff; }
+  .personal-block .project-desc { color:var(--text2); font-size:0.84rem; margin-top:0.8rem; line-height:1.9; }
+
+  /* ── Lightbox ── */
+  .lightbox { display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:2000; background:rgba(0,0,0,0.94); align-items:center; justify-content:center; }
+  .lightbox.active { display:flex; }
+  .lightbox img, .lightbox video { max-width:92vw; max-height:88vh; border-radius:6px; }
+  .lightbox .close { position:absolute; top:1.2rem; right:1.5rem; font-size:2rem; color:#fff; cursor:pointer; background:none; border:none; line-height:1; opacity:0.7; }
+  .lightbox .close:hover { opacity:1; }
+  .lightbox .nav-btn { position:absolute; top:50%; transform:translateY(-50%); font-size:3.5rem; color:#fff; cursor:pointer; background:none; border:none; padding:1rem; user-select:none; opacity:0.5; transition:opacity 0.2s; }
+  .lightbox .nav-btn:hover { opacity:1; }
+  .lightbox .prev { left:1rem; }
+  .lightbox .next { right:1rem; }
+
+  /* ── CTA & Footer ── */
+  .cta { text-align:center; padding:5rem 2rem; }
+  .cta h2 { font-size:1.8rem; color:#fff; margin-bottom:0.6rem; }
+  .cta p { color:var(--text2); font-size:0.88rem; }
+  footer { text-align:center; padding:2rem; border-top:1px solid var(--border); color:var(--text2); font-size:0.74rem; }
+
+  /* Scroll reveal */
+  .reveal { opacity:0; transform:translateY(28px); transition:all 0.7s ease-out; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:768px){
+    .gallery,.cap-grid,.agent-grid { grid-template-columns:1fr; }
+    nav .links { display:none; }
+    .hero h1 { font-size:2.6rem; }
+    section { padding:4rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">周振 · TA</span>
+  <ul class="links">
+    <li><a href="#exp">任职</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#capabilities">核心能力</a></li>
+    <li><a href="#projects">项目经历</a></li>
+    <li><a href="#gallery">作品展示</a></li>
+    <li><a href="#agent">Agent</a></li>
+    <li><a href="#competitor">竞品</a></li>
+    <li><a href="#personal">个人项目</a></li>
+  </ul>
+</nav>
+
+<!-- ══════ ① Hero ══════ -->
+<section class="hero">
+  <h1>周 振</h1>
+  <p class="sub">技术美术 · 渲染 · AI管线 · 全栈开发</p>
+  <p class="desc">8年游戏技术美术经验，专注渲染管线与AI Agent系统搭建。<br>当前重点：AI Agent驱动美术管线落地 —— 让AI真正进入生产。</p>
+  <div class="stats">
+    <div class="st"><div class="num">8+</div><div class="lbl">年TA经验</div></div>
+    <div class="st"><div class="num">8+</div><div class="lbl">游戏项目</div></div>
+    <div class="st"><div class="num">双向</div><div class="lbl">写实+风格化</div></div>
+    <div class="st"><div class="num">AI工程</div><div class="lbl">独立开发</div></div>
+  </div>
+  <div class="tags">
+    <span>写实 & 风格化渲染</span><span>AI Agent 管线</span><span>AIGC</span><span>竞品分析</span><span>全栈开发</span>
+  </div>
+</section>
+
+<!-- ══════ 任职经历 ══════ -->
+<section id="exp" style="padding:5rem 2rem;">
+  <div class="sec-inner" style="max-width:720px;">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><line x1="8" y1="7" x2="8" y2="4" stroke-linecap="round"/><line x1="16" y1="7" x2="16" y2="4" stroke-linecap="round"/><line x1="3" y1="13" x2="21" y2="13"/></svg></div>
+      <h2>任职经历</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.2rem 2rem;text-align:center;">
+      <p style="font-size:3rem;font-weight:800;color:#fff;line-height:1;letter-spacing:-0.02em;">2018 <span style="color:var(--accent);font-size:1.5rem;vertical-align:middle;margin:0 0.3rem;">→</span> 2026</p>
+      <p style="font-size:1rem;color:#fff;font-weight:600;margin-top:0.5rem;">网易互娱 · 艺术设计中心</p>
+      <p style="font-size:0.88rem;color:var(--text2);margin-top:0.1rem;">资深技术美术（渲染向）</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:0.5rem;margin-top:1.8rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+        <div style="padding:0.7rem 0.6rem;background:rgba(62,200,144,0.06);border-radius:8px;border:1px solid rgba(62,200,144,0.2);border-left:3px solid var(--accent-green);position:relative;">
+          <span style="position:absolute;top:-8px;right:-6px;padding:0.1rem 0.45rem;background:var(--accent-green);border-radius:8px;font-size:0.55rem;font-weight:700;color:#000;">接口人</span>
+          <p style="font-size:0.82rem;color:#fff;font-weight:600;">指环王</p>
+          <p style="font-size:0.63rem;color:var(--accent-green);margin-top:0.15rem;">核心项目 · 全流程</p>
+        </div>
+        <div style="padding:0.7rem 0.6rem;background:rgba(62,200,144,0.06);border-radius:8px;border:1px solid rgba(62,200,144,0.2);border-left:3px solid var(--accent-green);position:relative;">
+          <span style="position:absolute;top:-8px;right:-6px;padding:0.1rem 0.45rem;background:var(--accent-green);border-radius:8px;font-size:0.55rem;font-weight:700;color:#000;">接口人</span>
+          <p style="font-size:0.82rem;color:#fff;font-weight:600;">星战前夜</p>
+          <p style="font-size:0.63rem;color:var(--accent-green);margin-top:0.15rem;">主力项目 · 商业化</p>
+        </div>
+        <div style="padding:0.7rem 0.6rem;background:rgba(78,168,255,0.04);border-radius:8px;border:1px solid rgba(78,168,255,0.08);">
+          <p style="font-size:0.82rem;color:#fff;font-weight:600;">率土之滨</p>
+          <p style="font-size:0.63rem;color:var(--text2);margin-top:0.15rem;">六周年场景升级</p>
+        </div>
+        <div style="padding:0.7rem 0.6rem;background:rgba(78,168,255,0.04);border-radius:8px;border:1px solid rgba(78,168,255,0.08);">
+          <p style="font-size:0.82rem;color:#fff;font-weight:600;">无尽的拉格朗日</p>
+          <p style="font-size:0.63rem;color:var(--text2);margin-top:0.15rem;">引擎升级</p>
+        </div>
+        <div style="padding:0.7rem 0.6rem;background:rgba(78,168,255,0.04);border-radius:8px;border:1px solid rgba(78,168,255,0.08);">
+          <p style="font-size:0.82rem;color:#fff;font-weight:600;">灵兽大冒险</p>
+          <p style="font-size:0.63rem;color:var(--text2);margin-top:0.15rem;">风格化渲染</p>
+        </div>
+        <div style="padding:0.7rem 0.6rem;background:rgba(78,168,255,0.04);border-radius:8px;border:1px solid rgba(78,168,255,0.08);">
+          <p style="font-size:0.82rem;color:#fff;font-weight:600;">DeadlyDudes</p>
+          <p style="font-size:0.63rem;color:var(--text2);margin-top:0.15rem;">AIGC管线</p>
+        </div>
+        <div style="padding:0.7rem 0.6rem;background:rgba(167,139,250,0.05);border-radius:8px;border:1px solid rgba(167,139,250,0.1);">
+          <p style="font-size:0.82rem;color:#fff;font-weight:600;">预研项目</p>
+          <p style="font-size:0.63rem;color:var(--accent-purple);margin-top:0.15rem;">角色管线 0→1</p>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- ══════ ② 技术技能栈 ══════ -->
+<section id="skills">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="19" r="1.5"/><circle cx="5" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></div>
+      <h2>技术技能栈</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item reveal"><div class="skill-name">写实 + 风格化渲染</div><div class="skill-bar"><div class="fill c1" style="width:92%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">游戏全流程管线</div><div class="skill-bar"><div class="fill c1" style="width:90%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">AI智能体系统设计</div><div class="skill-bar"><div class="fill c3" style="width:95%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">AI工程与AIGC</div><div class="skill-bar"><div class="fill c3" style="width:88%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">Python / PyQt6全栈</div><div class="skill-bar"><div class="fill c2" style="width:85%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">竞品渲染分析</div><div class="skill-bar"><div class="fill c2" style="width:88%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">UE / Unity / NeoX</div><div class="skill-bar"><div class="fill c1" style="width:82%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">管线搭建与工具开发</div><div class="skill-bar"><div class="fill c2" style="width:84%"></div></div></div>
+      <div class="skill-item reveal"><div class="skill-name">Substance / Blender</div><div class="skill-bar"><div class="fill c1" style="width:76%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ③ 核心能力 ══════ -->
+<section id="capabilities">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><polygon points="12,2 22,20 2,20" stroke-linejoin="round"/></svg></div>
+      <h2>核心能力</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="cap-grid">
+      <div class="cap-card reveal ac-render">
+        <div class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18" opacity="0.3"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>写实 & 风格化 双向渲染能力</h3>
+        <div class="meta"><span>写实PBR</span><span>风格化NPR</span><span>BRDF</span><span>后处理</span><span>材质模拟</span></div>
+        <p class="desc">兼具写实PBR与风格化NPR双线渲染能力。从引擎级BRDF迭代到商业化皮肤全链路落地，从卡通渲染到竞品风格化还原。累计交付50+商业化舰船涂装。</p>
+        <div class="hl">
+          <div><strong>写实向</strong>：BRDF经验公式→标准GGX+双镜叶高光 <span class="metric">GPU↓35%</span>，EVE飞船PBR全流程</div>
+          <div><strong>风格化向</strong>：灵兽大冒险竞品风格化还原、卡通渲染Shader、边缘光+宝石特效</div>
+          <div><strong>后处理</strong>：抗锯齿对比分析 / 镜头光晕 / 泛光 / 水面反射</div>
+                  </div>
+      </div>
+      <div class="cap-card reveal ac-pipe">
+        <div class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="4"/><polygon points="10,7 18,12 10,17" fill="var(--accent-green)" opacity="0.3"/></svg></div>
+        <h3>游戏全流程管线掌握</h3>
+        <div class="meta"><span>生产管线</span><span>资源规范</span><span>引擎适配</span><span>工具开发</span></div>
+        <p class="desc">从美术资源生产到引擎集成的全流程管线设计。覆盖角色/场景/商业化外观的完整链路，多引擎适配实战经验。</p>
+        <div class="hl">
+          <div><strong>预研项目</strong>角色管线0→1 + 星战前夜商业化全流程标准</div>
+          <div>率土之滨六周年场景升级 / 无尽的拉格朗日引擎升级</div>
+          <div>指环王画质提升（天空球/LOD/河道/体积雾/道路）</div>
+          <div>新人培训导师 + 试题命题 + 团队排期</div>
+        </div>
+      </div>
+      <div class="cap-card reveal ac-aigc">
+        <div class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 8h10M7 12h10M7 16h6" stroke-width="1" opacity="0.5"/><rect x="6" y="6" width="12" height="12" rx="1" fill="var(--accent-purple)" opacity="0.1"/></svg></div>
+        <h3>AI工程与AIGC</h3>
+        <div class="meta"><span>独立产品</span><span>LoRA</span><span>ControlNet</span><span>PyQt6</span></div>
+        <p class="desc">独立开发「选片APP」+ 推动AIGC在指环王/DeadlyDudes从概念到量产。覆盖AI算法、桌面应用、资产生成管线的全栈能力。</p>
+        <div class="hl">
+          <div><strong>选片APP</strong>：1000张<span class="metric">2-4h→5-10min</span> | 23源文件+13测试</div>
+          <div>指环王 LoRA+CKPT 角色相似度 <span class="metric">提效51%</span></div>
+          <div>DeadlyDudes 角色<span class="metric">省80%</span> | 枪械<span class="metric">省50%</span> | 图标<span class="metric">省70%</span></div>
+          <div>AI贴图自动化 + Blender飞船管线 + 丧尸角色管线</div>
+          <div>个人Agent系统：独立搭建飞书/终端/Web多端智能体，集成30+工具与多模型调度</div>
+        </div>
+      </div>
+      <div class="cap-card reveal ac-agent">
+        <div class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="12" cy="15" r="2"/><line x1="7" y1="9" x2="10.5" y2="13.5"/><line x1="17" y1="9" x2="13.5" y2="13.5"/></svg></div>
+        <h3>AI智能体 — 美术管线落地</h3>
+        <div class="meta"><span>多智能体</span><span>三层架构</span><span>管线落地</span><span>MCP</span></div>
+        <p class="desc">主导璇玑与星云两大Agent系统建设，聚焦AI Agent驱动美术管线落地。从架构设计到生产部署，让AI真正参与资产制作流程。</p>
+        <div class="hl">
+          <div><strong>璇玑</strong>：架构共创 → 优化 → <strong>管线落地（当前）</strong></div>
+          <div><strong>星云</strong>：搭建 + 架构优化 → <strong>管线即将落地</strong></div>
+          <div>大话西游归来白金伙伴全+焕肤流程</div>
+        </div>
+      </div>
+      <div class="cap-card reveal ac-comp">
+        <div class="cap-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d07070" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="21" y2="21" stroke-linecap="round"/></svg></div>
+        <h3>竞品分析与技术预研</h3>
+        <div class="meta"><span>Nsight截帧</span><span>技术拆解</span><span>引擎还原</span></div>
+        <p class="desc">系统性分析业界标杆，覆盖UE4/Unity引擎，输出截帧→拆解→还原的完整预研闭环。</p>
+        <div class="hl">
+          <div>率土之滨 / 万国觉醒 / Frostpunk SLG全链路</div>
+                    <div>NBA 2K21：Nsight截帧皮肤渲染/dither毛发</div>
+          <div>AFK2：Unity卡通→NX引擎还原，SDF落地</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ④ 项目经历 ══════ -->
+<section id="projects">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="17" x2="12" y2="17"/></svg></div>
+      <h2>项目经历</h2>
+      <div class="sec-line"></div>
+      <p>8年 · 8+游戏项目 · 渲染与AI双线并行</p>
+    </div>
+
+    <div class="proj-block reveal">
+      <h3><span class="proj-badge b1">主力项目</span> 星战前夜手游 · EVE Echoes</h3>
+      <div class="proj-tags"><span>2024-2026</span><span>渲染迭代</span><span>商业化皮肤</span><span>AI辅助</span></div>
+      <div class="proj-body">
+        <div>
+          <h4>渲染技术（写实 + 风格化双线）</h4>
+          <ul>
+            <li><strong>写实向</strong>：BRDF经验公式→标准GGX+双镜叶高光，EVE飞船PBR全流程迭代 <span class="metric">GPU耗时↓35%</span></li>
+            <li><strong>风格化向</strong>：灵兽大冒险竞品风格化还原、卡通渲染Shader、边缘光+宝石特效2版迭代</li>
+            <li>端游对标：贴图→Shader→后处理全流程，可落地性三级验证</li></ul>
+          <h4 style="margin-top:1rem;">AI管线</h4>
+          <ul><li>AI贴图自动分布转化+UV布局生成不同贴图</li><li>随机霓虹灯Agent生图 + AI Agent特效制作</li><li>Blender飞船自动化管线：参数化生成+可用性评估</li></ul>
+        </div>
+        <div>
+          <h4>商业化皮肤渲染</h4>
+          <ul><li><strong>舰船涂装</strong>：猫主题/丰收之神/圣诞/春节/618足球/章鱼纳米核心/青花瓷等</li><li><strong>材质预研</strong>：冰块迭代/镭射/布料/世界杯质感+贴图调色</li><li><strong>技术方案</strong>：程序化生成/多层UV/视差/UV流动/卡通Shader</li><li><strong>管线</strong>：商业化外观全流程标准化（模型/动画/特效/QA）</li><li><strong>舰船制作</strong>：突击航母/蜕升者级/乌鸦T3/台风T3组件</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-block reveal">
+      <h3><span class="proj-badge b2">AI Agent</span> 璇玑系统 · MMO美术全链路加速引擎</h3>
+      <div class="proj-tags"><span>架构共创</span><span>持续优化</span><span>管线落地</span><span>提效40-50%</span><span>2025-2026</span></div>
+      <div class="proj-body">
+        <div>
+          <h4>我的角色</h4>
+          <ul><li><strong>架构共创</strong>：参与5大AI智能体系统架构设计（总调度/天璇/天玑/天权/PM）</li><li><strong>持续优化</strong>：三层递进架构+节点式可视化编排迭代</li><li><strong>管线落地（当前阶段）</strong>：推动AI从概念验证进入生产环境</li></ul>
+        </div>
+        <div>
+          <h4>落地成果</h4>
+          <ul><li>大话西游归来白金伙伴全+焕肤流程</li><li>11类资产覆盖，S级/A级分级支持</li><li>跨项目适配（大话西游端游等），调参切换</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-block reveal">
+      <h3><span class="proj-badge b3">AI Agent</span> 星云系统 · 新一代Agent平台</h3>
+      <div class="proj-tags"><span>Agent搭建</span><span>架构优化</span><span>管线即将落地</span><span>2025-2026</span></div>
+      <div class="proj-body">
+        <div>
+          <h4>我的角色</h4>
+          <ul><li><strong>前期搭建</strong>：从0搭建星云Agent系统，完成基础架构与核心能力建设</li><li><strong>架构优化</strong>：Agent架构持续迭代，提升稳定性与扩展性</li><li><strong>管线落地（即将）</strong>：架构验证完成，下一阶段进入实际美术管线落地</li></ul>
+        </div>
+        <div>
+          <h4>方向与目标</h4>
+          <ul><li>AI Agent驱动美术生产流程，让Agent真正参与资产制作</li><li>与璇玑互补——覆盖不同品类和场景的管线需求</li><li>探索Agent自动化编排在大型项目中的规模化应用</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-block reveal">
+      <h3><span class="proj-badge b1">核心项目</span> 指环王 · TA环节接口人</h3>
+      <div class="proj-tags"><span>立项→上线→2周年</span><span>TA环节跟进</span><span>渲染</span><span>性能优化</span><span>接口人</span><span>2022-2025</span></div>
+      <div class="proj-body">
+        <div>
+          <h4>我的角色</h4>
+          <ul><li><strong>TA环节接口人</strong>：从项目立项到上线到二周年迭代，全程跟进美术技术方向</li><li><strong>渲染主责</strong>：负责指环王写实角色渲染效果、画质提升方案制定与落地</li><li><strong>性能优化</strong>：天空球/LOD/河道/体积雾/道路全链路性能方案</li></ul>
+        </div>
+        <div>
+          <h4>核心产出</h4>
+          <ul>
+            <li><strong>画质提升</strong>：天空球/LOD/河道/体积雾/道路全链路优化 <span class="metric">帧率+20%</span></li>
+            <li><strong>渲染升级</strong>：材质库搭建</li>
+            <li><strong>地形烘焙</strong>：流程搭建和维护</li>
+            <li><strong>任务管理</strong>：需求任务分配与规划</li>
+            <li><strong>竞品截帧</strong>：低配竞品Nsight深度拆解，输出性能对标方案</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-block reveal">
+      <h3><span class="proj-badge b1">AIGC</span> 指环王 / DeadlyDudes · AIGC多环节落地</h3>
+      <div class="proj-tags"><span>LoRA</span><span>ControlNet</span><span>枪械管线</span><span>2022-2025</span></div>
+      <div class="proj-body">
+        <div>
+          <h4>指环王 AIGC应用</h4>
+          <ul><li>LoRA+CKPT训练解决IP角色电影原著脸部相似度</li><li>AI+手修交替：草图→ControlNet→AI细化→人工调整 <span class="metric">提效51%</span></li><li>覆盖角色设计/场景设计/贴图制作/特效辅助/动作生成5个环节</li></ul>
+        </div>
+        <div>
+          <h4>DeadlyDudes AI管线</h4>
+          <ul><li>角色细化 <span class="metric">省80%</span> | 枪械细化 <span class="metric">省50%</span></li><li>技能图标MJ生成 <span class="metric">省70%</span>（1天8-15个）</li><li>丧尸生成 + 场景风格转换 + AI视频生成</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-block reveal">
+      <h3>率土之滨 / 无尽的拉格朗日 / 灵兽大冒险 / 预研项目 · 多项目并行</h3>
+      <div class="proj-tags"><span>2020-2025</span><span>渲染</span><span>管线</span><span>竞品</span></div>
+      <div class="proj-body">
+        <div>
+          <h4>渲染与优化</h4>
+          <ul>
+            <li><strong>率土之滨 · 六周年场景升级</strong>：大气散射/实时光照/战争迷雾系统，后处理变色+水面反射 <span class="metric">帧率稳定60</span></li>
+            <li><strong>无尽的拉格朗日 · 引擎升级</strong>：一周年引擎升级场景+特效效果匹配，PC版资产检查环境搭建</li>
+            <li><strong>灵兽大冒险 · 风格化</strong>：灵兽篇模型五维优化（气质/身材/剪影/色块/细节），角色Shader边缘光+宝石效果2版迭代</li></ul>
+        </div>
+        <div>
+          <h4>管线与方案</h4>
+          <ul>
+            <li><strong>预研项目 · 角色管线</strong>：从0到1规划，产出模板3版迭代</li>
+            <li><strong>竞品系统分析</strong>：NBA 2K21(Nsight截帧)/战双(卡通渲染)/AFK2(NX还原)</li>
+            <li><strong>专利</strong>：基于NeoX的眼球快速生成渲染方案</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ⑤ 作品展示 ══════ -->
+<section id="gallery">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg></div>
+      <h2>作品展示</h2>
+      <div class="sec-line"></div>
+      <p>商业化渲染 · AI流程 · 工具管线</p>
+    </div>
+
+    <!-- 渲染 -->
+    <div class="sec-header gal-header" style="margin-bottom:2rem;">
+      <h3 style="font-size:1.3rem;color:var(--accent-warm);display:inline-flex;align-items:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3" fill="var(--accent-warm)" opacity="0.2"/></svg>渲染</h3>
+    </div>
+    <div class="gallery">
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G85商业化皮肤渲染特效.mp4" data-type="video"><video src="渲染/G85商业化皮肤渲染特效.mp4" muted preload="metadata"></video><div class="play-icon"></div></div><div class="card-info"><span class="card-tag t-render">G85 · 商业化</span><div class="card-title">商业化皮肤渲染特效</div><div class="card-desc">舰船涂装渲染材质效果展示</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G85商业化涂装技术实现.mp4" data-type="video"><video src="渲染/G85商业化涂装技术实现.mp4" muted preload="metadata"></video><div class="play-icon"></div></div><div class="card-info"><span class="card-tag t-render">G85 · 商业化</span><div class="card-title">商业化涂装技术实现</div><div class="card-desc">涂装Shader/材质技术方案演示</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G85渲染质量迭代.mp4" data-type="video"><video src="渲染/G85渲染质量迭代.mp4" muted preload="metadata"></video><div class="play-icon"></div></div><div class="card-info"><span class="card-tag t-render">星战前夜 · 渲染迭代</span><div class="card-title">渲染质量迭代</div><div class="card-desc">BRDF升级 · 光照模型迭代效果</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G85商业化涂装02.png" data-type="img"><img src="渲染/G85商业化涂装02.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">G85 · 涂装</span><div class="card-title">商业化涂装效果</div><div class="card-desc">舰船涂装最终渲染效果展示</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G85商业化涂装03.png" data-type="img"><img src="渲染/G85商业化涂装03.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">G85 · 涂装</span><div class="card-title">商业化涂装方案</div><div class="card-desc">多套涂装方案对比展示</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G96写实角色渲染01.mp4" data-type="video"><video src="渲染/G96写实角色渲染01.mp4" muted preload="metadata"></video><div class="play-icon"></div></div><div class="card-info"><span class="card-tag t-render">G96 · 指环王</span><div class="card-title">写实角色渲染 01</div><div class="card-desc">指环王IP写实角色渲染</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G96写实角色渲染02.mp4" data-type="video"><video src="渲染/G96写实角色渲染02.mp4" muted preload="metadata"></video><div class="play-icon"></div></div><div class="card-info"><span class="card-tag t-render">G96 · 指环王</span><div class="card-title">写实角色渲染 02</div><div class="card-desc">指环王IP写实角色效果</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G96写实角色渲染03.jpeg" data-type="img"><img src="渲染/G96写实角色渲染03.jpeg" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">G96 · 指环王</span><div class="card-title">写实角色渲染 03</div><div class="card-desc">角色渲染静态帧</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G96写实角色渲染04.jpeg" data-type="img"><img src="渲染/G96写实角色渲染04.jpeg" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">G96 · 指环王</span><div class="card-title">写实角色渲染 04</div><div class="card-desc">角色渲染静态帧</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G136风格化渲染.png" data-type="img"><img src="渲染/G136风格化渲染.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">G136 · 风格化</span><div class="card-title">风格化渲染效果</div><div class="card-desc">灵兽大冒险风格化渲染方案</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G136风格化渲染02.png" data-type="img"><img src="渲染/G136风格化渲染02.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">G136 · 风格化</span><div class="card-title">风格化渲染 02</div><div class="card-desc">角色风格化Shader效果</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/G136风格化-竞品还原.png" data-type="img"><img src="渲染/G136风格化-竞品还原.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">灵兽大冒险 · 竞品还原</span><div class="card-title">风格化-竞品还原</div><div class="card-desc">竞品风格化效果技术还原</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/SLG天空方案01.png" data-type="img"><img src="渲染/SLG天空方案01.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">SLG · 天空盒</span><div class="card-title">SLG天空方案 01</div><div class="card-desc">SLG项目天空盒渲染方案</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/SLG天空盒方案02.png" data-type="img"><img src="渲染/SLG天空盒方案02.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">SLG · 天空盒</span><div class="card-title">SLG天空方案 02</div><div class="card-desc">天空盒渲染方案对比</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/SLG天空盒方案03.png" data-type="img"><img src="渲染/SLG天空盒方案03.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">SLG · 天空盒</span><div class="card-title">SLG天空方案 03</div><div class="card-desc">天空盒夜景/黄昏方案</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/UE效果预研及自研引擎还原.png" data-type="img"><img src="渲染/UE效果预研及自研引擎还原.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">引擎预研</span><div class="card-title">UE效果预研 & 自研引擎还原</div><div class="card-desc">UE参考效果→自研引擎NX技术还原验证</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/毛毡效果预研01.png" data-type="img"><img src="渲染/毛毡效果预研01.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">材质预研</span><div class="card-title">毛毡效果预研 01</div><div class="card-desc">毛毡材质Shader效果技术预研</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="渲染/毛毡效果预研02.png" data-type="img"><img src="渲染/毛毡效果预研02.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-render">材质预研</span><div class="card-title">毛毡效果预研 02</div><div class="card-desc">毛毡材质方案对比优化</div></div></div>
+    </div>
+
+    <!-- AI流程 -->
+    <div class="sec-header gal-header" style="margin-bottom:2rem;">
+      <h3 style="font-size:1.3rem;color:var(--accent-purple);display:inline-flex;align-items:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><circle cx="8" cy="14" r="2" fill="var(--accent-purple)" opacity="0.2"/><circle cx="16" cy="14" r="2"/><line x1="8" y1="12" x2="10" y2="8"/><line x1="16" y1="12" x2="14" y2="8"/><circle cx="12" cy="7" r="1.5"/></svg>AI 流程</h3>
+    </div>
+    <div class="gallery">
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="AI流程类/AI细化管线Lora训练01.png" data-type="img"><img src="AI流程类/AI细化管线Lora训练01.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-ai">AI细化管线</span><div class="card-title">LoRA训练 01</div><div class="card-desc">角色细化管线LoRA模型训练流程</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="AI流程类/AI细化管线Lora训练02.png" data-type="img"><img src="AI流程类/AI细化管线Lora训练02.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-ai">AI细化管线</span><div class="card-title">LoRA训练 02</div><div class="card-desc">LoRA训练效果与参数迭代</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="AI流程类/AI视频探索01.png" data-type="img"><img src="AI流程类/AI视频探索01.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-ai">AI视频探索</span><div class="card-title">AI视频生成 01</div><div class="card-desc">AI视频生成管线技术验证</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="AI流程类/AI视频探索02.png" data-type="img"><img src="AI流程类/AI视频探索02.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-ai">AI视频探索</span><div class="card-title">AI视频生成 02</div><div class="card-desc">AI视频风格迁移与生成效果</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="AI流程类/AI视频探索03.png" data-type="img"><img src="AI流程类/AI视频探索03.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-ai">AI视频探索</span><div class="card-title">AI视频生成 03</div><div class="card-desc">AI视频管线效果验证</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="AI流程类/AI视频探索04.png" data-type="img"><img src="AI流程类/AI视频探索04.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-ai">AI视频探索</span><div class="card-title">AI视频生成 04</div><div class="card-desc">AI视频多帧一致性测试</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="AI流程类/AI视频探索05.png" data-type="img"><img src="AI流程类/AI视频探索05.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-ai">AI视频探索</span><div class="card-title">AI视频生成 05</div><div class="card-desc">AI视频管线最终效果展示</div></div></div>
+    </div>
+
+    <!-- 工具类 -->
+    <div class="sec-header gal-header" style="margin-bottom:2rem;">
+      <h3 style="font-size:1.3rem;color:var(--accent-green);display:inline-flex;align-items:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>工具 & 管线</h3>
+    </div>
+    <div class="gallery">
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="工具类/KVhoudini辅助管线.png" data-type="img"><img src="工具类/KVhoudini辅助管线.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-tool">Houdini</span><div class="card-title">KV Houdini辅助管线</div><div class="card-desc">Houdini程序化生成辅助KV渲染管线</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="工具类/KV渲染效果.png" data-type="img"><img src="工具类/KV渲染效果.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-tool">KV渲染</span><div class="card-title">KV渲染效果</div><div class="card-desc">Key Visual最终渲染成果</div></div></div>
+      <div class="card reveal"><div class="card-media" onclick="openLightbox(this)" data-src="工具类/性能标准制定.png" data-type="img"><img src="工具类/性能标准制定.png" loading="lazy"></div><div class="card-info"><span class="card-tag t-tool">性能规范</span><div class="card-title">性能标准制定</div><div class="card-desc">TA性能标准规范文档</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ⑥ AI Agent 开发 ══════ -->
+<section id="agent">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="8" cy="8" r="2"/><circle cx="16" cy="8" r="2"/><circle cx="12" cy="16" r="2"/><line x1="8" y1="10" x2="11" y2="14"/><line x1="16" y1="10" x2="13" y2="14"/></svg></div>
+      <h2>AI Agent 开发 — 美术管线落地</h2>
+      <div class="sec-line"></div>
+      <p>璇玑 & 星云 · 聚焦美术生产管线的AI Agent系统</p>
+    </div>
+    <div class="agent-grid">
+      <div class="agent-card reveal">
+        <div class="agent-emoji"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 3 4 3 4-3 4-3"/><path d="M9 9h.01M15 9h.01"/><line x1="9" y1="9" x2="10" y2="9" stroke-width="2"/><line x1="14" y1="9" x2="15" y2="9" stroke-width="2"/></svg></div>
+        <h3>璇玑系统</h3>
+        <p class="agent-role">MMO美术全链路加速引擎 · 架构共创 → 持续优化 → 管线落地</p>
+        <ul>
+          <li>参与5大AI智能体架构设计（总调度/天璇/天玑/天权/PM）</li>
+          <li>三层递进架构：业务层→管线层→Skill层，节点式可视化编排</li>
+          <li>当前推动管线实际落地，让AI从概念验证进入生产环境</li>
+          <li>成效：大话西游归来白金伙伴全+焕肤流程</li>
+        </ul>
+        <div class="arch-wrap card-media" data-src="Agent架构/xuanji.png" data-type="img" onclick="openLightbox(this)"><img src="Agent架构/xuanji.png" loading="lazy" alt="璇玑系统架构"></div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="agent-emoji"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M18 10h-1.3A5 5 0 0012 6.7a5 5 0 00-4.7 3.3H6a3 3 0 000 6h1.3A5 5 0 0012 19.3a5 5 0 004.7-3.3H18a3 3 0 000-6z"/></svg></div>
+        <h3>星云系统</h3>
+        <p class="agent-role">新一代Agent平台 · 搭建 → 优化 → 管线即将落地</p>
+        <ul>
+          <li>从0搭建星云Agent系统，完成基础架构与核心能力建设</li>
+          <li>Agent架构持续优化迭代，提升稳定性与扩展性</li>
+          <li>架构验证完成，下一阶段进入实际美术管线落地</li>
+          <li>与璇玑互补，覆盖不同品类和场景的美术管线需求</li>
+        </ul>
+        <div class="arch-wrap card-media" data-src="Agent架构/xingyun.png" data-type="img" onclick="openLightbox(this)"><img src="Agent架构/xingyun.png" loading="lazy" alt="星云系统架构"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ⑦ 竞品分析 ══════ -->
+<section id="competitor">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="11" cy="11" r="6"/><line x1="16" y1="16" x2="21" y2="21" stroke-linecap="round"/></svg></div>
+      <h2>竞品分析</h2>
+      <div class="sec-line"></div>
+      <p>系统性竞品调研 · 截帧分析 · 技术拆解</p>
+    </div>
+    <div class="ppt-grid">
+      <div class="ppt-card reveal"><div class="arch-wrap card-media" data-src="竞品分析/竞品分析01.png" data-type="img" onclick="openLightbox(this)"><img src="竞品分析/竞品分析01.png" loading="lazy" alt="竞品分析"></div><h3>竞品渲染分析</h3><p>系统性的竞品渲染管线与技术方案拆解</p></div>
+      <div class="ppt-card reveal"><div class="arch-wrap card-media" data-src="竞品分析/竞品分析02.png" data-type="img" onclick="openLightbox(this)"><img src="竞品分析/竞品分析02.png" loading="lazy" alt="竞品分析"></div><h3>竞品技术对比</h3><p>多款竞品横向对比，从渲染到管线全链路</p></div>
+      <div class="ppt-card reveal"><div class="arch-wrap card-media" data-src="竞品分析/竞品分析03.png" data-type="img" onclick="openLightbox(this)"><img src="竞品分析/竞品分析03.png" loading="lazy" alt="竞品分析"></div><h3>竞品深度调研</h3><p>美术风格、渲染品质、技术方案综合分析</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ⑧ 个人项目 ══════ -->
+<section id="personal">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h2>个人项目</h2>
+      <div class="sec-line"></div>
+      <p>独立全栈开发 · AI产品实践</p>
+    </div>
+    <div class="personal-block reveal">
+      <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-4px;margin-right:6px;"><rect x="2" y="4" width="20" height="16" rx="3"/><circle cx="12" cy="12" r="3"/><path d="M17 9l2-2M17 15l2 2"/></svg>选片APP — AI智能照片筛选助手</h3>
+      <p class="project-desc">
+        独立设计开发的PyQt6桌面应用。解决摄影师痛点：1000张照片初筛从2-4小时缩短至5-10分钟。<br>
+        核心能力：模糊检测（拉普拉斯+FFT频域分析）、曝光分析（直方图+九宫格）、人脸检测（MediaPipe闭眼/表情）、构图评分。<br>
+        工程规范：23源文件 + 13 pytest + type hints + YAML配置 + i18n国际化预留。<br>
+        支持JPG/PNG/HEIC/RAW多格式 + 增量扫描 + 缩略图浏览器。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>期待与您交流</h2>
+  <p>8年技术美术 · 渲染+AI双线并进 · 美术管线落地实践</p>
+</section>
+<footer><p>© 2026 周振 · Technical Artist & AI Developer</p></footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close" onclick="closeLightbox()">✕</button>
+  <button class="nav-btn prev" onclick="event.stopPropagation();navigateLightbox(-1)">‹</button>
+  <button class="nav-btn next" onclick="event.stopPropagation();navigateLightbox(1)">›</button>
+  <div id="lightbox-content"></div>
+</div>
+
+<script>
+let galleryItems = [];
+let currentIdx = -1;
+document.querySelectorAll('.card-media[data-src]').forEach(el => galleryItems.push(el));
+function openLightbox(el) {
+  currentIdx = galleryItems.indexOf(el);
+  showItem();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navigateLightbox(dir) {
+  currentIdx = (currentIdx + dir + galleryItems.length) % galleryItems.length;
+  showItem();
+}
+function showItem() {
+  const item = galleryItems[currentIdx];
+  const container = document.getElementById('lightbox-content');
+  container.innerHTML = item.dataset.type === 'video'
+    ? `<video src="${item.dataset.src}" controls autoplay style="max-width:92vw;max-height:88vh;border-radius:6px;"></video>`
+    : `<img src="${item.dataset.src}" alt="" style="max-width:92vw;max-height:88vh;border-radius:6px;">`;
+}
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+});
+document.getElementById('lightbox-content').addEventListener('click', e => e.stopPropagation());
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
