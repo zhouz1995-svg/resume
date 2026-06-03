@@ -163,6 +163,9 @@
   .agent-card ul { list-style:none; color:var(--text2); font-size:0.82rem; }
   .agent-card li { padding:0.28rem 0; padding-left:1.1rem; position:relative; }
   .agent-card li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:0.7rem; }
+  .agent-card .arch-wrap { margin-top:1rem; border-radius:6px; overflow:hidden; border:1px solid var(--border); cursor:pointer; transition:border-color 0.2s; }
+  .agent-card .arch-wrap:hover { border-color:var(--accent); }
+  .agent-card .arch-wrap img { width:100%; display:block; }
 
   /* ── Competitor ── */
   .ppt-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.3rem; }
@@ -559,8 +562,9 @@
           <li>参与5大AI智能体架构设计（总调度/天璇/天玑/天权/PM）</li>
           <li>三层递进架构：业务层→管线层→Skill层，节点式可视化编排</li>
           <li>当前推动管线实际落地，让AI从概念验证进入生产环境</li>
-          <li>成效：时装全流程 5→3周，光武模型 3→1.5周</li>
+          <li>成效：时装全流程 <span class="metric">5→3周</span>，光武模型 <span class="metric">3→1.5周</span></li>
         </ul>
+        <div class="arch-wrap card-media" data-src="Agent架构/xuanji.png" data-type="img" onclick="openLightbox(this)"><img src="Agent架构/xuanji.png" loading="lazy" alt="璇玑系统架构"></div>
       </div>
       <div class="agent-card reveal">
         <div class="agent-emoji"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M18 10h-1.3A5 5 0 0012 6.7a5 5 0 00-4.7 3.3H6a3 3 0 000 6h1.3A5 5 0 0012 19.3a5 5 0 004.7-3.3H18a3 3 0 000-6z"/></svg></div>
@@ -572,6 +576,7 @@
           <li>架构验证完成，下一阶段进入实际美术管线落地</li>
           <li>与璇玑互补，覆盖不同品类和场景的美术管线需求</li>
         </ul>
+        <div class="arch-wrap card-media" data-src="Agent架构/xingyun.png" data-type="img" onclick="openLightbox(this)"><img src="Agent架构/xingyun.png" loading="lazy" alt="星云系统架构"></div>
       </div>
     </div>
   </div>
