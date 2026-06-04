@@ -125,6 +125,22 @@
   .proj-body li { padding:0.22rem 0; padding-left:0.9rem; position:relative; }
   .proj-body li::before { content:'›'; position:absolute; left:0; color:var(--accent); font-weight:700; }
 
+  /* Patent list — clean, no cards */
+  .patent-item {
+    display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap;
+    padding:0.7rem 0; border-bottom:1px solid rgba(255,255,255,0.04);
+    font-size:0.92rem; color:var(--text);
+  }
+  .patent-item:last-child { border-bottom:none; }
+  .patent-year {
+    font-size:0.68rem; font-weight:700; color:var(--accent-warm);
+    background:rgba(240,160,64,0.1); padding:0.1rem 0.5rem; border-radius:4px;
+    white-space:nowrap; letter-spacing:0.03em;
+  }
+  .patent-role {
+    font-size:0.68rem; color:var(--text2); margin-left:auto; white-space:nowrap;
+  }
+
   /* ── Gallery ── */
   .gal-header { margin-top:5rem; }
   .gal-header:first-child { margin-top:0; }
@@ -518,27 +534,14 @@
       <div class="sec-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="3" fill="var(--accent)" opacity="0.15"/></svg></div>
       <h2>专利成果</h2>
       <div class="sec-line"></div>
-      <p>4项国家发明专利 · 渲染与引擎技术方向</p>
+      <p>4项 · 渲染与引擎技术方向</p>
     </div>
 
-    <div class="proj-block reveal" style="border-left: 3px solid var(--accent-warm);">
-      <div class="proj-tags"><span>2025</span><span>第一发明人</span><span>NeoX引擎</span></div>
-      <p style="margin-top:0.5rem;">一种基于SFX特效关键帧数据的NeoX引擎音频驱动动画模拟方案</p>
-    </div>
-
-    <div class="proj-block reveal" style="border-left: 3px solid var(--accent-warm);">
-      <div class="proj-tags"><span>2023</span><span>第一发明人</span><span>NeoX引擎</span></div>
-      <p style="margin-top:0.5rem;">基于材质和灰度色阶的NeoX引擎分层校色方案</p>
-    </div>
-
-    <div class="proj-block reveal" style="border-left: 3px solid var(--accent-warm);">
-      <div class="proj-tags"><span>2022</span><span>第一发明人</span></div>
-      <p style="margin-top:0.5rem;">基于UV的真实眼球透射光斑模拟方案</p>
-    </div>
-
-    <div class="proj-block reveal" style="border-left: 3px solid var(--accent-warm);">
-      <div class="proj-tags"><span>2022</span><span>第一发明人</span></div>
-      <p style="margin-top:0.5rem;">一种基于手机平台的体积雾方案</p>
+    <div class="patent-list reveal" style="max-width:860px;margin:0 auto;">
+      <div class="patent-item"><span class="patent-year">2025</span>一种基于SFX特效关键帧数据的NeoX引擎音频驱动动画模拟方案 <span class="patent-role">第一发明人</span></div>
+      <div class="patent-item"><span class="patent-year">2023</span>基于材质和灰度色阶的NeoX引擎分层校色方案 <span class="patent-role">第一发明人</span></div>
+      <div class="patent-item"><span class="patent-year">2022</span>基于UV的真实眼球透射光斑模拟方案 <span class="patent-role">第一发明人</span></div>
+      <div class="patent-item"><span class="patent-year">2022</span>一种基于手机平台的体积雾方案 <span class="patent-role">第一发明人</span></div>
     </div>
   </div>
 </section>
