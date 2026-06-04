@@ -234,6 +234,27 @@
     .hero h1 { font-size:2.6rem; }
     section { padding:4rem 1.2rem; }
   }
+
+  /* ── Print (PDF) ── */
+  @media print {
+    body { background:#fff; color:#222; }
+    nav, .play-icon { display:none; }
+    section { padding:2rem 1rem; page-break-inside:avoid; }
+    .card, .proj-block, .agent-card, .patent-item, .ppt-card {
+      background:#f8f8f8; border:1px solid #ddd; color:#222;
+      box-shadow:none; break-inside:avoid;
+    }
+    .card-media video { display:none; }
+    .card-info .card-desc { display:none; }
+    .card img, .arch-wrap img { opacity:1; display:block; }
+    img[loading="lazy"] { display:block; }
+    .hero { min-height:auto; padding:2rem 1rem; }
+    .hero h1 { font-size:2rem; color:#111; }
+    .hero .sub { color:#555; }
+    .sec-header h2 { color:#111; }
+    .sec-line { background:#333; }
+    .metric { color:#c00; }
+  }
 </style>
 </head>
 <body>
